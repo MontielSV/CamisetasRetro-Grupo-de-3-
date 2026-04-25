@@ -1,136 +1,70 @@
 import React, { useState } from 'react';
-import { 
-  StyleSheet, 
-  View, 
-  Text, 
-  TouchableOpacity, 
-  SafeAreaView, 
-  StatusBar 
-} from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 
-// --- COMPONENTES TEMPORALES (Para tus compañeros B y C) ---
-const CatalogoCamisetas = () => (
+// Importamos la pantalla que creaste en el Commit 2
+// (Tus compañeros trabajarán dentro de estos componentes)
+const CatalogoScreen = () => (
   <View style={styles.screen}>
-    <Text style={styles.emoji}>👕</Text>
-    <Text style={styles.title}>Catálogo Retro</Text>
-    <Text style={styles.subtitle}>Aquí el Integrante B pondrá la lista de la API</Text>
+    <Text style={styles.title}>👕 CATÁLOGO RETRO</Text>
+    <Text style={styles.subtitle}>Sección del Integrante B</Text>
   </View>
 );
 
-const SeccionOriginal = () => (
+const OriginalScreen = () => (
   <View style={styles.screen}>
-    <Text style={styles.emoji}>🏆</Text>
-    <Text style={styles.title}>Joyas de Colección</Text>
-    <Text style={styles.subtitle}>Aquí el Integrante C hará su función original</Text>
+    <Text style={styles.title}>🏆 JOYAS / RAREZAS</Text>
+    <Text style={styles.subtitle}>Sección del Integrante C</Text>
   </View>
 );
 
-// --- COMPONENTE PRINCIPAL (Tu tarea - Integrante A) ---
 export default function App() {
-  const [tabActual, setTabActual] = useState('Inicio');
+  const [activeTab, setActiveTab] = useState('Home');
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
       
-      {/* HEADER: Identidad de la App */}
+      {/* CABECERA */}
       <View style={styles.header}>
-        <Text style={styles.headerText}>RETRO FOOTBALL SHOP</Text>
+        <Text style={styles.headerTitle}>VINTAGE FOOTBALL</Text>
       </View>
 
-      {/* CONTENIDO: Cambia según el menú */}
+      {/* CONTENIDO VARIABLE */}
       <View style={styles.content}>
-        {tabActual === 'Inicio' ? <CatalogoCamisetas /> : <SeccionOriginal />}
+        {activeTab === 'Home' ? <CatalogoScreen /> : <OriginalScreen />}
       </View>
 
-      {/* MENÚ TÁCTIL (Punto 11 - Integrante A) */}
+      {/* MENÚ DE NAVEGACIÓN (Tu tarea - Integrante A) */}
       <View style={styles.tabBar}>
         <TouchableOpacity 
-          style={[styles.tabButton, tabActual === 'Inicio' && styles.tabActive]} 
-          onPress={() => setTabActual('Inicio')}
+          style={[styles.tabItem, activeTab === 'Home' && styles.activeTab]} 
+          onPress={() => setActiveTab('Home')}
         >
-          <Text style={[styles.tabLabel, tabActual === 'Inicio' && styles.labelActive]}>
-            CATÁLOGO
-          </Text>
+          <Text style={[styles.tabText, activeTab === 'Home' && styles.tabTextActive]}>LISTA</Text>
         </TouchableOpacity>
 
         <TouchableOpacity 
-          style={[styles.tabButton, tabActual === 'Original' && styles.tabActive]} 
-          onPress={() => setTabActual('Original')}
+          style={[styles.tabItem, activeTab === 'Original' && styles.activeTab]} 
+          onPress={() => setActiveTab('Original')}
         >
-          <Text style={[styles.tabLabel, tabActual === 'Original' && styles.labelActive]}>
-            JOYAS / RAREZAS
-          </Text>
+          <Text style={[styles.tabText, activeTab === 'Original' && styles.tabTextActive]}>ORIGINAL</Text>
         </TouchableOpacity>
       </View>
+
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0a0a0a',
-  },
-  header: {
-    height: 70,
-    backgroundColor: '#151515',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#d4af37', // Color dorado para estilo retro
-  },
-  headerText: {
-    color: '#d4af37',
-    fontSize: 18,
-    fontWeight: 'bold',
-    letterSpacing: 2,
-  },
-  content: {
-    flex: 1,
-  },
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  emoji: {
-    fontSize: 50,
-    marginBottom: 10,
-  },
-  title: {
-    color: 'white',
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  subtitle: {
-    color: '#666',
-    textAlign: 'center',
-    marginTop: 10,
-  },
-  tabBar: {
-    flexDirection: 'row',
-    height: 65,
-    backgroundColor: '#151515',
-    borderTopWidth: 0.5,
-    borderTopColor: '#333',
-  },
-  tabButton: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  tabActive: {
-    borderTopWidth: 3,
-    borderTopColor: '#d4af37',
-  },
-  tabLabel: {
-    color: '#666',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
-  labelActive: {
-    color: '#d4af37',
-  },
+  container: { flex: 1, backgroundColor: '#000' },
+  header: { height: 60, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: '#d4af37' },
+  headerTitle: { color: '#d4af37', fontWeight: 'bold', fontSize: 18, letterSpacing: 2 },
+  content: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  screen: { alignItems: 'center' },
+  title: { color: 'white', fontSize: 22, fontWeight: 'bold' },
+  subtitle: { color: '#888', marginTop: 10 },
+  tabBar: { flexDirection: 'row', height: 70, backgroundColor: '#111', borderTopWidth: 1, borderTopColor: '#333' },
+  tabItem: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  activeTab: { borderTopWidth: 3, borderTopColor: '#d4af37' },
+  tabText: { color: '#666', fontWeight: 'bold' },
+  tabTextActive: { color: '#d4af37' }
 });
